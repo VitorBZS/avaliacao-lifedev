@@ -1,7 +1,7 @@
 import styles from './Login.module.css'
 import { useEffect, useState } from 'react'
 import { useAuthentication } from '../../hooks/useAuthentication'
-
+import { loginWithGoogle } from '../../firebase/auth';
 
 const Login = () => {
     const [email, setEmail] = useState("")
@@ -65,4 +65,23 @@ const Login = () => {
         </div>
     )
 }
-export default Login
+
+function LoginGoogle(){
+    const handleLogin = async () => {
+        try{
+            const user = await loginWithGoogle();
+            console.log("Usuário logado:", user)
+        }catch (err){
+            alert("Erro ao fazer login");
+        }
+    };
+
+    return (
+        <div>
+            <h2>Login</h2>
+            <button onClick={handleLogin}>Entrar com Google</button>
+        </div>
+    );
+}
+
+export default (Login, LoginGoogle)
