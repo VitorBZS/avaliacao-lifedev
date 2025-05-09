@@ -6,6 +6,10 @@
     padding: 0.5em 2em;
   }
   
+  .nav_life{
+    color: #18891B;
+  }
+
   .brand {
     font-size: 1.2em;
   }
@@ -18,10 +22,12 @@
   .links_list {
     display: flex;
     list-style: none;
+    
   }
   
   .links_list li {
     margin-right: 1em;
+    
   }
   
   .links_list li a {

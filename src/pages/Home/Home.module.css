@@ -5,6 +5,10 @@
     justify-content: center;
   }
   
+  .home_h1{
+    text-align: center;
+  }
+
   .search_form {
     max-width: 100%;
     width: 60%;
@@ -28,4 +32,16 @@
   
   .noposts a {
     padding: 10px 25px;
+  }
+
+  .post_list {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .post_card {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
   }
