@@ -1,0 +1,45 @@
+.search_container {
+  padding: 2em;
+}
+
+.search_container h2 {
+  margin-bottom: 1em;
+}
+
+.search_container .noposts {
+  text-align: center;
+}
+
+.search_container .noposts p {
+  margin-bottom: 1.5em;
+}
+
+.post_card {
+  margin-bottom: 1em;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.post_card h3 {
+  margin-bottom: 0.5em;
+}
+
+.post_card p {
+  margin-bottom: 1em;
+}
+
+.post_card .tags {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+.post_card .tags p {
+  margin: 0;
+  font-size: 0.8em;
+}
+
+.post_card .tags span {
+  font-weight: bold;
+} 

@@ -1,14 +1,13 @@
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { app } from './config';
+import { getFirestore, collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from './config';
 
-const db = getFirestore(app);
-
-export const createPost = async ({ title, content, user }) => {
+export const createPost = async ({ title, content, user, tags }) => {
     try {
         const docRef = await addDoc(collection(db, "posts"),{
             title,
             content,
-            createdAt: Timestamp.now(),
+            tags,
+            createdAt: serverTimestamp(),
             author: {
                 uid: user.uid,
                 name: user.displayName,

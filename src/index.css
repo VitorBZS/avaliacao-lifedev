@@ -88,3 +88,52 @@ button[disabled]{
   align-items: center;
   text-align: center;
 }
+
+body[data-theme='light'] {
+  background: #fff;
+  color: #222;
+}
+
+body[data-theme='dark'] {
+  background: #181818;
+  color: #f1f1f1;
+}
+
+/* Ajuste para inputs, textarea e botões */
+body[data-theme='dark'] input,
+body[data-theme='dark'] textarea {
+  background: #222;
+  color: #f1f1f1;
+  border-color: #444;
+}
+
+body[data-theme='dark'] .btn {
+  background: #333;
+  color: #fff;
+}
+
+body[data-theme='dark'] .btn:hover {
+  background: #18891b;
+  color: #222;
+}
+
+body[data-theme='dark'] .navbar {
+  background: #222 !important;
+}
+
+body[data-theme='dark'] .footer {
+  background: #222 !important;
+  color: #fff;
+}
+
+body[data-theme='dark'] .post_card {
+  background: #222;
+  color: #f1f1f1;
+  border-color: #444;
+}
+
+body[data-theme='light'] .post_card {
+  background: #f9f9f9;
+  color: #222;
+  border-color: #ccc;
+}
