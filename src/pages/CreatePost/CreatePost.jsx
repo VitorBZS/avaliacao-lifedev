@@ -1,52 +1,93 @@
-import { useState } from "react";
-import { createPost } from '../../firebase/firestore';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuthValue } from '../../contexts/AuthContext'
+import { useInsertDocument } from '../../hooks/useInsertDocument'
+import styles from './CreatePost.module.css'
 
-function CreatePost(){
-    const[title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const { user } = useAuth;
-    const navigate = useNavigate();
+const CreatePost = () => {
+  const [title, setTitle] = useState("")
+  const [body, setBody] = useState("")
+  const [tags, setTags] = useState("")
+  const [formError, setFormError] = useState("")
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const { insertDocument, response } = useInsertDocument("posts")
+  const { user } = useAuthValue()
+  const navigate = useNavigate()
 
-        if(!title || !content){
-            alert("Preencha todos os campos");
-            return;
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setFormError("")
 
-        try {
-            await createPost({ title, content, user });
-            alert("Post criado com sucesso!");
-            navigate("/dashboard");
-        } catch (err) {
-            alert("Erro ao criar post");
-        }
-    };
+    // criar array de tags
+    const tagsArray = tags.split(",").map((tag) => tag.trim().toLowerCase())
 
-    return (
-        <div>
-            <h2>Criar Novo Post</h2>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="text"
-                    placeholder="Título"
-                    value={title} 
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <br />
-                <textarea 
-                    placeholder="Conteúdo"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                />
-                <br />
-                <button type="submit">Publicar</button>
-            </form>
-        </div>
-    );
+    // checar todos os valores
+    if (!title || !tags || !body) {
+      setFormError("Por favor, preencha todos os campos!")
+      return
+    }
+
+    const post = {
+      title,
+      body,
+      tagsArray,
+      uid: user.uid,
+      createdBy: user.displayName,
+      createdAt: new Date()
+    }
+
+    insertDocument(post)
+
+    // redirect para home page
+    navigate("/")
+  }
+
+  return (
+    <div className={styles.create_post}>
+      <h2>Criar novo post</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <span>Título:</span>
+          <input
+            type="text"
+            name="title"
+            required
+            placeholder="Pense num bom título..."
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+          />
+        </label>
+        <label>
+          <span>Conteúdo:</span>
+          <textarea
+            name="body"
+            required
+            placeholder="Insira o conteúdo do post"
+            onChange={(e) => setBody(e.target.value)}
+            value={body}
+          ></textarea>
+        </label>
+        <label>
+          <span>Tags:</span>
+          <input
+            type="text"
+            name="tags"
+            required
+            placeholder="Insira as tags separadas por vírgula"
+            onChange={(e) => setTags(e.target.value)}
+            value={tags}
+          />
+        </label>
+        {!response.loading && <button className="btn">Criar</button>}
+        {response.loading && (
+          <button className="btn" disabled>
+            Aguarde...
+          </button>
+        )}
+        {formError && <p className="error">{formError}</p>}
+      </form>
+    </div>
+  )
 }
 
-export default CreatePost;
+export default CreatePost

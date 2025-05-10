@@ -1,10 +1,16 @@
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
 import { db } from "../firebase/config";
 
-export const getPost = async () => {
-    const postRef = collection(db, "posts");
-    const q = query(postRef, orderBy("createdAt", "desc"));
-    const snapshot = await getDocs(q);
-    const posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    return posts;
+export const getPosts = async () => {
+    const querySnapshot = await getDocs(collection(db, 'posts'));
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+export const searchPostsByTag = async (tag) => {
+    const q =query(
+        collection(db,'posts'),
+        where('tagsArray', 'array-contains', tag.toLowerCase())
+    );
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };

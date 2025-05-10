@@ -20,8 +20,18 @@ const Login = () => {
         }
 
         const res = await login(user)
-
         console.log(res)
+    }
+
+    const handleGoogleLogin = async () => {
+        try {
+            setError("")
+            const user = await loginWithGoogle()
+            console.log("Usuário logado com Google:", user)
+        } catch (err) {
+            setError("Erro ao fazer login com Google")
+            console.error(err)
+        }
     }
 
     useEffect(() => {
@@ -62,26 +72,24 @@ const Login = () => {
                 {loading && <button className='btn' disabled>Aguarde... </button>}
                 {error && <p>{error}</p>}
             </form>
+            <div className={styles.divider}>
+                <span>ou</span>
+            </div>
+
+            <div className={styles.socialLogin}>
+                <button 
+                    onClick={handleGoogleLogin}
+                    className={styles.googleBtn}
+                    disabled={loading}
+                >
+                    <span className={styles.googleIconWrapper}>
+                        <img src="https://www.google.com/favicon.ico" alt="Google" className={styles.googleIcon} width="18" height="18" />
+                    </span>
+                    <span className={styles.googleBtnText}>Entrar com Google</span>
+                </button>
+            </div>
         </div>
     )
 }
 
-function LoginGoogle(){
-    const handleLogin = async () => {
-        try{
-            const user = await loginWithGoogle();
-            console.log("Usuário logado:", user)
-        }catch (err){
-            alert("Erro ao fazer login");
-        }
-    };
-
-    return (
-        <div>
-            <h2>Login</h2>
-            <button onClick={handleLogin}>Entrar com Google</button>
-        </div>
-    );
-}
-
-export default (Login, LoginGoogle)
+export default Login 

@@ -1,0 +1,39 @@
+.post_container {
+  text-align: center;
+}
+
+.post_container h1 {
+  margin-bottom: 0.2em;
+}
+
+.post_container .tags {
+  display: flex;
+  justify-content: center;
+}
+
+.tags p {
+  margin-right: 1em;
+}
+
+.tags span {
+  font-weight: bold;
+}
+
+.createdby {
+  font-style: italic;
+  color: #444;
+  font-size: 0.8em;
+  margin-bottom: 1em;
+}
+
+.body {
+  white-space: pre-wrap;
+  text-align: left;
+  margin: 2em 0;
+}
+
+.post_container img {
+  max-width: 100%;
+  height: auto;
+  margin: 1em 0;
+} 

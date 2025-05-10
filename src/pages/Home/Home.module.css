@@ -44,4 +44,12 @@
     padding: 1rem;
     border-radius: 8px;
     margin-bottom: 1rem;
+    color: #222;
+    border: 1px solid #ccc;
+  }
+
+  .dark {
+    background: #222 !important;
+    color: #f1f1f1 !important;
+    border-color: #444 !important;
   }
